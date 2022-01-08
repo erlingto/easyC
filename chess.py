@@ -324,9 +324,11 @@ class King(Piece):
         if self.first_move:
             for rook in self.rooks:
                 if rook.first_move and self.check_between(rook):
-                    self.rokade.append(rook)
                     direction = int((rook.position[0]-self.position[0]) / abs(self.position[0] - rook.position[0]))
                     position = [self.position[0]+direction*2, self.position[1]]
+                    if self.check_for_self_check(position):
+                        continue
+                    self.rokade.append(rook)
                     self.king_pos.append(position)
                     position = [self.position[0]+direction*1, self.position[1]]
                     self.rook_pos.append(position)
