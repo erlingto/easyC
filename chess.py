@@ -302,14 +302,18 @@ class King(Piece):
             color = 1
         diff = rook.position[0] - self.position[0] 
         one = int(diff/abs(diff))
-        for i in range(one, diff-one, one):
+        for i in range(one, diff, one):
             if self.game.board[self.position[0]+i][self.position[1]] != 0:
                 return False
+            else:
+                self.game.board[self.position[0]+i][self.position[1]] = self
             for piece in self.game.pieces[(color+1)%2]:
                 if piece.type == "King":
                     continue
                 if [self.position[0]+i,self.position[1]] in piece.get_possible_moves():
+                    self.game.board[self.position[0]+i][self.position[1]] = 0
                     return False
+            self.game.board[self.position[0]+i][self.position[1]] = 0
         return True
         
     def check_rokade(self):
