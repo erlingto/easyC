@@ -453,10 +453,11 @@ class Game():
         if promotee:
             self.promotee = promotee
         else:
-            if not no_change and self.next_to_move == "B":
-                self.next_to_move = "W"
-            else:
-                self.next_to_move = "B"
+            if not no_change:
+                if self.next_to_move == "B":
+                    self.next_to_move = "W"
+                else:
+                    self.next_to_move = "B"
         
     def promote(self, typ):
         color = 0
